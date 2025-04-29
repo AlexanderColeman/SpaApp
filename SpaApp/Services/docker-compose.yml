@@ -1,0 +1,12 @@
+services:
+  main:
+    image: ${DOCKER_REGISTRY-}main
+    build:
+      context: .
+      dockerfile: Main/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    
+    
+    
