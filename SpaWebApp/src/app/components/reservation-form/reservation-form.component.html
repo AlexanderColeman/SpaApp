@@ -1,0 +1,15 @@
+<form [formGroup]="reservationForm" class="container mt-4" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="customerName" class="form-label">Customer Name</label>
+    <input type="text" class="form-control" id="customerName" formControlName="customerName" placeholder="Enter your name">
+  </div>
+  <div class="mb-3">
+    <label for="createdDate" class="form-label">Created Date</label>
+    <input type="datetime-local" class="form-control" id="createdDate" formControlName="createdDate">
+  </div>
+  <div class="mb-3">
+    <label for="numberOfGuests" class="form-label">Number of Guests</label>
+    <input type="number" class="form-control" id="numberOfGuests" formControlName="numberOfGuests" placeholder="Enter number of guests">
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="reservationForm.invalid">Submit Reservation</button>
+</form>

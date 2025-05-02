@@ -1,0 +1,24 @@
+.carousel-item img {
+  width: 80%;           /* Resize image to make it smaller */
+  height: auto;         /* Maintain aspect ratio */
+  object-fit: contain;  /* Ensure the image is contained without being cropped */
+  margin-left: auto;    /* Center horizontally */
+  margin-right: auto;   /* Center horizontally */
+  display: block;       /* Make the image a block element to center it */
+}
+
+.carousel-item {
+  height: 400px; /* Set a fixed height */
+  display: flex;
+  align-items: center;  /* Vertically center the image */
+  justify-content: center; /* Horizontally center the image */
+}
+
+.container {
+  max-width: 800px;
+}
+
+.custom-vh-bg {
+  height: 94.1vh;
+  background-color: black;
+}

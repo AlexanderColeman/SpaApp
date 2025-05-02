@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Main.Dtos;
+using Main.Managers;
+using Main.Managers.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using SpaApp.models;
-using System.Collections.Generic;
 
 namespace YourNamespace.Controllers
 {
@@ -8,41 +10,39 @@ namespace YourNamespace.Controllers
     [Route("[controller]")]
     public class ReservationController : ControllerBase
     {
-        public ReservationController()
+        private readonly IReservationManager _reservationManager;
+
+        public ReservationController(IReservationManager reservationManager)
         {
-            
+            _reservationManager = reservationManager;
         }
 
         [HttpGet]
-        public async Task<ICollection<Reservation>> GetAll()
+        public async Task<IEnumerable<ReservationDTO>> GetReservations()
         {
-            var reservations = new List<Reservation>();
+            var reservations = await _reservationManager.GetReservationsAsync();
             return reservations;
         }
 
         [HttpGet("{id}")]
-        public async Task<Reservation> GetById(int id)
+        public async Task<ReservationDTO> GetReservation(Guid id)
         {
-            var reservation = new Reservation();
+            var reservation = await _reservationManager.GetReservationAsync(id);
             return reservation;
         }
 
         [HttpPost]
-        public async Task<Reservation> Create([FromBody] Reservation reservation)
+        public async Task<ReservationDTO> SaveUpdateReservation([FromBody] ReservationDTO reservation)
         {
-            return reservation;
-        }
-
-        [HttpPut("{id}")]
-        public async Task<Reservation> Update(int id, [FromBody] Reservation updated)
-        {
-            return updated;
+            var savedReservation = await _reservationManager.SaveUpdateReservationAsync(reservation);
+            return savedReservation;
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            return NoContent();
+            var result = await _reservationManager.DeleteReservationAsync(id);
+            return result ? Ok() : BadRequest();
         }
     }
 }
