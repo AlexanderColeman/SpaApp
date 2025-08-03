@@ -1,4 +1,10 @@
 
+using Main.Database;
+using Main.Managers;
+using Main.Managers.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace Main
 {
     public class Program
@@ -9,7 +15,8 @@ namespace Main
 
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddDbContext<ReservationDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddCors(options =>
             {
@@ -22,6 +29,8 @@ namespace Main
                               .AllowAnyMethod();
                     });
             });
+
+            builder.Services.AddScoped<IReservationManager, ReservationManager>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

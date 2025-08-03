@@ -1,0 +1,17 @@
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Created Date</th>
+      <th>Number of Guests</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reservation of reservations$ | async">
+      <td>{{ reservation.customerName }}</td>
+      <td>{{ reservation.createdDate | date:'short' }}</td>
+      <td>{{ reservation.numberOfGuests }}</td>
+    </tr>
+  </tbody>
+</table>
